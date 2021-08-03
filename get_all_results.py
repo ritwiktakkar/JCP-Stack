@@ -18,6 +18,11 @@ def is_valid_search() -> []:
         driver_for_ieee.implicitly_wait(10)
         driver_for_springer.implicitly_wait(10)
         query = io_query()
+        print(
+            "Please wait for the drivers to begin deploying on their respective digital libraries...",
+            end=" ",
+            flush=True,
+        )
         # 2 - driver visits links with user input term as search query and only check for results between years 2016 - 2021
         driver_for_acm.get(
             "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl&field1=Keyword&text1=%s&AfterMonth=1&AfterYear=2016&BeforeMonth=12&BeforeYear=2021"
@@ -55,6 +60,7 @@ def is_valid_search() -> []:
             ).text
         except:
             num_hits_ieee = 0
+        print("Done!")
         hits_to_show_ieee = int(25)
         max_pages_temp_ieee = int(num_hits_ieee) / hits_to_show_ieee
         max_pages_ieee = ceil(max_pages_temp_ieee)
