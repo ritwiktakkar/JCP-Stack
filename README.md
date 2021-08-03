@@ -88,7 +88,7 @@ To get this project running on your local machine, follow these simple steps:
 4. You will need the [latest](https://www.google.com/intl/en_us/chrome/) version of Google Chrome installed on your machine
 5. Execute `get_all_results.py` using Python
    ```sh
-   <PATH TO PYTHON INTERPRETER> <PATH TO get_all_results.py>
+   PATH_TO_PYTHON_INTERPRETER PATH_TO_get_all_results.py
    ``` 
 
 
