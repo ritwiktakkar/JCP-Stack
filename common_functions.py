@@ -32,10 +32,10 @@ def make_chrome_headless(o=True):
 
 def create_list_of_selected_jc() -> []:
     """
-    Return the "Selected Journals and Conferences.csv" as a list
+    Return the "SelectedJournalsAndConferences.csv" as a list
     """
     selected_jc = []
-    with open("Selected Journals and Conferences.csv", mode="r") as csv_file:
+    with open("SelectedJournalsAndConferences.csv", mode="r") as csv_file:
         csv_reader = csv.DictReader(csv_file)
         for row in csv_reader:
             selected_jc.append(row["Name"])
@@ -113,7 +113,7 @@ def print_checking_all_results(sp):
 def sp_io() -> []:
     """
     Return (1) similarity percentage [0, 1] and (2) sp [0, 100]
-    - The similarity corresponds to the minimum percentage likeness between the journal/conference name of each result and those listed in "Selected Journals and Conferences.csv"
+    - The similarity corresponds to the minimum percentage likeness between the journal/conference name of each result and those listed in "SelectedJournalsAndConferences.csv"
     """
     similarity_percentage = float(
         input(
