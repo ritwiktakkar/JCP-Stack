@@ -86,7 +86,16 @@ To get this project running on your local machine, follow these simple steps:
    pip install -r requirements.txt
    ```
 4. You will need the [latest](https://www.google.com/intl/en_us/chrome/) version of Google Chrome installed on your machine
-5. Execute `get_all_results.py` using Python
+5. Create a file called `config.py` inside this repo and add the following:
+   ```py
+   from sys import platform
+   
+   if platform == "win32": # path to search results on Windows
+       path_to_search_results = "C:/Users/<PATH TO WHERE YOU WISH TO STORE RESULT CSV FILES>"
+   else: # path to search results on macOS
+       path_to_search_results = "/Users/<PATH TO WHERE YOU WISH TO STORE RESULT CSV FILES>"
+   ``` 
+6. Execute `get_all_results.py` using Python
    ```sh
    PATH_TO_PYTHON_INTERPRETER PATH_TO_get_all_results.py
    ``` 
