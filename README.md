@@ -15,7 +15,7 @@
       <a href="#about-the-project">About The Project</a>
       <ul>
         <li><a href="#onomatology">Onomatology</a></li>
-        <li><a href="#built-with">Built With</a></li>
+        <li><a href="#dependencies">Dependencies</a></li>
       </ul>
     </li>
     <li>
@@ -43,7 +43,7 @@ This project aims to help researchers find and sort papers from the ACM, Springe
 "JCP-Stack" is short for "Journal/Conference Paper Stack" given that executing this program (ideally) outputs a CSV file that contains information about a stack of journal/conference papers related to a given keyword. 
 
 
-### Built With
+### Dependencies
 
 * appdirs==1.4.4
 * beautifulsoup4==4.9.3
