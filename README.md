@@ -95,7 +95,8 @@ To get this project running on your local machine, follow these simple steps:
    else: # path to search results on macOS
        path_to_search_results = "/Users/<PATH TO WHERE YOU WISH TO STORE RESULT CSV FILES>"
    ``` 
-6. Execute `get_all_results.py` using Python
+6. View the "Name" column inside `SelectedJournalsAndConferences.csv`: these are the list of names whose [similarity (Levenshtein ratio)](https://rawgit.com/ztane/python-Levenshtein/master/docs/Levenshtein.html#Levenshtein-ratio) will be checked against each search result's journal/conference name. Feel free to modify this column on your local machine to add/remove journal names (not) of interest to you. 
+7. Execute `get_all_results.py` using Python
    ```sh
    PATH_TO_PYTHON_INTERPRETER PATH_TO_get_all_results.py
    ``` 
