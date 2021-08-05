@@ -21,7 +21,7 @@
     <li>
       <a href="#getting-started">Getting Started</a>
       <ul>
-        <li><a href="#installation">Installation</a></li>
+        <li><a href="#steps">Steps</a></li>
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
@@ -71,7 +71,7 @@ This project aims to help researchers find and sort papers from the ACM, Springe
 
 To get this project running on your local machine, follow these simple steps:
 
-### Installation
+### Steps
 
 1. Clone the repo
    ```sh
