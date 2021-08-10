@@ -1,4 +1,5 @@
 from selenium import webdriver
+from typing import List
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from Levenshtein import ratio
@@ -30,7 +31,7 @@ def make_chrome_headless(o=True):
     return headless_driver
 
 
-def create_list_of_selected_jc() -> []:
+def create_list_of_selected_jc() -> List:
     """
     Return the "SelectedJournalsAndConferences.csv" as a list
     """
@@ -110,7 +111,7 @@ def print_checking_all_results(sp):
     )
 
 
-def sp_io() -> []:
+def sp_io() -> List:
     """
     Return (1) similarity percentage [0, 1] and (2) sp [0, 100]
     - The similarity corresponds to the minimum percentage likeness between the journal/conference name of each result and those listed in "SelectedJournalsAndConferences.csv"

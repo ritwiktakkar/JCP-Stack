@@ -1,7 +1,7 @@
 from common_functions import *
 
 
-def is_valid_search() -> []:
+def is_valid_search() -> List:
     """
     - Input: N.A.
     - Output: 7 -> [1], [2], [3] are drivers for ACM, Springer and IEEE; [4] search query gathered from IO; [5], [6], [7] are the number of pages to traverse when searching for results on ACM, Springer and IEEE
@@ -11,7 +11,7 @@ def is_valid_search() -> []:
         # 1 - create drivers for each database
         driver_for_acm = make_chrome_headless(True)  # True hides automated browser
         print("Driver for ACM is ready.")
-        driver_for_springer = make_chrome_headless(True)
+        driver_for_springer = make_chrome_headless(False)
         print("Driver for Springer is ready.")
         driver_for_ieee = make_chrome_headless(True)
         print("Driver for IEEE Xplore is ready.\n")
@@ -62,7 +62,7 @@ def is_valid_search() -> []:
             num_hits_ieee = 0
         print("Done!")
         hits_to_show_ieee = int(25)
-        max_pages_temp_ieee = int(num_hits_ieee) / hits_to_show_ieee
+        max_pages_temp_ieee = int(int(num_hits_ieee) / hits_to_show_ieee)
         max_pages_ieee = ceil(max_pages_temp_ieee)
         # 4 - return data to get_all_results()
         return [
