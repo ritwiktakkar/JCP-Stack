@@ -25,6 +25,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
+    <li><a href="#Status">Status</a></li>
     <li><a href="#issues">Issues</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -42,7 +43,6 @@ This project aims to help researchers find and sort papers from the ACM, Springe
 ### Onomatology
 
 "JCP-Stack" is short for "Journal/Conference Paper Stack" given that executing this program (ideally) outputs a CSV file that contains information about a stack of journal/conference papers related to a given keyword. 
-
 
 ### Dependencies
 
@@ -67,7 +67,10 @@ This project aims to help researchers find and sort papers from the ACM, Springe
 * urllib3==1.26.5
 * webdriver-manager==3.4.2
 
+
+
 <!-- GETTING STARTED -->
+
 ## Getting Started
 
 To get this project running on your local machine, follow these simple steps:
@@ -110,9 +113,22 @@ To get this project running on your local machine, follow these simple steps:
 
 **TO-DO**
 
+
+
 <!-- ISSUES -->
 ## Issues
 On Windows only: Selenium's quit() method alone fails to kill chromedriver processes thereby leading to a sort of memory leak. To counter this, I added a batch file (`kill_chromedriver.bat`) that kills all `chrome.exe` processes. As a result, ANY Chrome process unrelated to this program will ALSO die at the hands of this rather brute approach.  
+
+
+
+<!-- STATUS -->
+## Status
+Given that the layouts of online research databases are updated occasionally, the scraper may also need to be updated acordingly to successfully retrieve the necessary information therein. The table below provides the current status of the scraper's ability to retrieve information from different online research databases.
+|  Database   | Scraper Status |
+| :---------: | :------------: |
+|     ACM     |       ✅        |
+|  Springer   |       ❌        |
+| IEEE Xplore |       ❌        |
 
 
 <!-- CONTRIBUTING -->
