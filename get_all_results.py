@@ -124,7 +124,7 @@ def get_all_results() -> bool:
         checkACM = input(
             "Would you like to check the ACM database? Enter 'y' if yes, otherwise enter any key: "
         )
-        if checkACM == "y".lower():
+        if checkACM.lower() == "y":
             print("Checking results in ACM:")
             with open(str(file_path), "w", encoding="UTF8", newline="") as f:
                 # create the csv writer
@@ -223,7 +223,7 @@ def get_all_results() -> bool:
         checkSpringer = input(
             "Would you like to check the Springer database? Enter 'y' if yes, otherwise enter any key: "
         )
-        if checkSpringer == "y".lower():
+        if checkSpringer.lower() == "y":
             i_springer = 0  # set increment representing how many pages the user wants to traverse
             print("Checking results in Springer:")
             with open(str(file_path), "a+", encoding="UTF8", newline="") as f:
@@ -321,7 +321,7 @@ def get_all_results() -> bool:
         checkIEEE = input(
             "Would you like to check the IEEE Xplore database? Enter 'y' if yes, otherwise enter any key: "
         )
-        if checkIEEE == "y".lower():
+        if checkIEEE.lower() == "y":
             print("Checking results in IEEE:")
             with open(str(file_path), "a+", encoding="UTF8", newline="") as f:
                 # create the csv writer
