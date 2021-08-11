@@ -25,7 +25,7 @@
       </ul>
     </li>
     <li><a href="#usage">Usage</a></li>
-    <li><a href="#Status">Status</a></li>
+    <li><a href="#status">Status</a></li>
     <li><a href="#issues">Issues</a></li>
     <li><a href="#contributing">Contributing</a></li>
     <li><a href="#license">License</a></li>
@@ -115,12 +115,6 @@ To get this project running on your local machine, follow these simple steps:
 
 
 
-<!-- ISSUES -->
-## Issues
-On Windows only: Selenium's quit() method alone fails to kill chromedriver processes thereby leading to a sort of memory leak. To counter this, I added a batch file (`kill_chromedriver.bat`) that kills all `chrome.exe` processes. As a result, ANY Chrome process unrelated to this program will ALSO die at the hands of this rather brute approach.  
-
-
-
 <!-- STATUS -->
 ## Status
 Given that the layouts of online research databases are updated occasionally, the scraper may also need to be updated acordingly to successfully retrieve the necessary information therein. The table below provides the current status of the scraper's ability to retrieve information from different online research databases.
@@ -129,6 +123,13 @@ Given that the layouts of online research databases are updated occasionally, th
 |     ACM     |       ✅        |
 |  Springer   |       ❌        |
 | IEEE Xplore |       ❌        |
+
+
+
+<!-- ISSUES -->
+## Issues
+On Windows only: Selenium's quit() method alone fails to kill chromedriver processes thereby leading to a sort of memory leak. To counter this, I added a batch file (`kill_chromedriver.bat`) that kills all `chrome.exe` processes. As a result, ANY Chrome process unrelated to this program will ALSO die at the hands of this rather brute approach.  
+
 
 
 <!-- CONTRIBUTING -->
