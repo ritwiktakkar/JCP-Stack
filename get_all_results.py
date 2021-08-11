@@ -76,22 +76,28 @@ def is_valid_search() -> List:
         ]
     except Exception as e:
         fail_message(e)
-        driver_for_acm.quit()
-        print("Error! Driver for ACM has quit.")
-        driver_for_springer.quit()
-        print("Error! Driver for Springer has quit.")
-        driver_for_ieee.quit()
-        print("Error! Driver for IEEE Xplore has quit.")
+        if platform == "win32":
+            subprocess.call([r"kill_chromedriver.bat"])
+        else:
+            driver_for_acm.quit()
+            print("Error! Driver for ACM has quit.")
+            driver_for_springer.quit()
+            print("Error! Driver for Springer has quit.")
+            driver_for_ieee.quit()
+            print("Error! Driver for IEEE Xplore has quit.")
         return []
     except KeyboardInterrupt as k:
         fail_message(k)
-        print("Please wait for the ACM, Springer and IEEE Xplore drivers to quit...")
-        driver_for_acm.quit()
-        print("Error! Driver for ACM has quit.")
-        driver_for_springer.quit()
-        print("Error! Driver for Springer has quit.")
-        driver_for_ieee.quit()
-        print("Error! Driver for IEEE Xplore has quit.")
+        if platform == "win32":
+            subprocess.call([r"kill_chromedriver.bat"])
+            # raise SystemExit(0)
+        else:
+            driver_for_acm.quit()
+            print("Error! Driver for ACM has quit.")
+            driver_for_springer.quit()
+            print("Error! Driver for Springer has quit.")
+            driver_for_ieee.quit()
+            print("Error! Driver for IEEE Xplore has quit.")
         return []
 
 
@@ -122,7 +128,7 @@ def get_all_results() -> bool:
         # 4 - check all databases
         # 4a - check acm first
         checkACM = input(
-            "Would you like to check the ACM database? Enter 'y' if yes, otherwise enter any key: "
+            "Would you like to check the ACM database? Enter 'y' if yes, otherwise enter any other key: "
         )
         if checkACM.lower() == "y":
             print("Checking results in ACM:")
@@ -221,7 +227,7 @@ def get_all_results() -> bool:
             print("Skipping the ACM database...")
         # 4b - check springer second
         checkSpringer = input(
-            "Would you like to check the Springer database? Enter 'y' if yes, otherwise enter any key: "
+            "Would you like to check the Springer database? Enter 'y' if yes, otherwise enter any other key: "
         )
         if checkSpringer.lower() == "y":
             i_springer = 0  # set increment representing how many pages the user wants to traverse
@@ -319,7 +325,7 @@ def get_all_results() -> bool:
             print("Skipping the Springer database...")
         # 4c - check ieee third
         checkIEEE = input(
-            "Would you like to check the IEEE Xplore database? Enter 'y' if yes, otherwise enter any key: "
+            "Would you like to check the IEEE Xplore database? Enter 'y' if yes, otherwise enter any other key: "
         )
         if checkIEEE.lower() == "y":
             print("Checking results in IEEE:")
@@ -411,28 +417,37 @@ def get_all_results() -> bool:
         return True
     except Exception as e:
         fail_message(e)
-        driver_for_acm.quit()
-        print("Error! Driver for ACM has quit.")
-        driver_for_springer.quit()
-        print("Error! Driver for Springer has quit.")
-        driver_for_ieee.quit()
-        print("Error! Driver for IEEE Xplore has quit.")
+        if platform == "win32":
+            subprocess.call([r"kill_chromedriver.bat"])
+            # raise SystemExit(0)
+        else:
+            driver_for_acm.quit()
+            print("Error! Driver for ACM has quit.")
+            driver_for_springer.quit()
+            print("Error! Driver for Springer has quit.")
+            driver_for_ieee.quit()
+            print("Error! Driver for IEEE Xplore has quit.")
         return False
     except KeyboardInterrupt as k:
         fail_message(k)
-        print("Please wait for the ACM, Springer and IEEE Xplore drivers to quit...")
-        driver_for_acm.quit()
-        print("Error! Driver for ACM has quit.")
-        driver_for_springer.quit()
-        print("Error! Driver for Springer has quit.")
-        driver_for_ieee.quit()
-        print("Error! Driver for IEEE Xplore has quit.")
+        if platform == "win32":
+            subprocess.call([r"kill_chromedriver.bat"])
+            # raise SystemExit(0)
+        else:
+            driver_for_acm.quit()
+            print("Error! Driver for ACM has quit.")
+            driver_for_springer.quit()
+            print("Error! Driver for Springer has quit.")
+            driver_for_ieee.quit()
+            print("Error! Driver for IEEE Xplore has quit.")
         return False
 
 
 def main():
     while True:
-        get_all_results()
+        if get_all_results() == False:
+            print("Please wait for this program to terminate...")
+            raise SystemExit
 
 
 if __name__ == "__main__":

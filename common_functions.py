@@ -9,7 +9,9 @@ from os import path, makedirs
 from math import ceil
 from operator import itemgetter
 from string import ascii_letters
+from sys import platform
 from re import compile
+import subprocess
 import csv
 import config
 
