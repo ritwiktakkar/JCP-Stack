@@ -95,9 +95,9 @@ To get this project running on your local machine, follow these simple steps:
    from common_functions import platform
 
    if platform == "win32":
-       path_to_search_results = "C:/Users/ricks/Desktop/search-results/"
+       path_to_search_results = "C:/<PATH TO SEARCH RESULTS>"
    else:
-       path_to_search_results = "/Users/ricks/Desktop/search-results/"
+       path_to_search_results = "/Users/<PATH TO SEARCH RESULTS>"
    ``` 
 6. View the "Name" column inside `SelectedJournalsAndConferences.csv`: this is the list of names whose [similarity (Levenshtein ratio)](https://rawgit.com/ztane/python-Levenshtein/master/docs/Levenshtein.html#Levenshtein-ratio) will be checked against each search result's journal/conference name. Feel free to modify this column on your local machine to add/remove journal names (not) of interest to you. 
 7. Execute `get_all_results.py` using Python
