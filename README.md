@@ -1,7 +1,7 @@
   <h2 align="center">JCP-Stack</h2>
 
   <p align="center">
-    An efficient way to scrape results from the ACM, Springer, and IEEE Xplore digital libraries
+    An efficient way to collect results from the ACM, Springer, and IEEE Xplore digital libraries
     <br />
     <a href="">View Demo **TO-DO**</a> <!-- TODO: add link to video demo on website (embedded youtube link) -->
   </p>
