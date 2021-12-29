@@ -120,6 +120,4 @@ dmypy.json
 .pyre/
 Results/
 .idea/
-*.xml
-.idea/csv-plugin.xml
 .DS_Store
