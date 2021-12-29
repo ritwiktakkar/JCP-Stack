@@ -21,7 +21,7 @@ def make_chrome_headless(o=True):
     Return a headless driver of Chrome
     """
     options = Options()
-    if o == True:
+    if o:
         options.add_argument("--headless")
     options.add_argument("--disable-extensions")
     options.add_argument("--log-level=3")

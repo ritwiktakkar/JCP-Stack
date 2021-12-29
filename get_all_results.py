@@ -9,11 +9,11 @@ def is_valid_search() -> List:
     """
     try:
         # 1 - create drivers for each database
-        driver_for_acm = make_chrome_headless(True)  # True hides automated browser
+        driver_for_acm = make_chrome_headless()  # True hides automated browser
         print("Driver for ACM is ready.")
-        driver_for_springer = make_chrome_headless(True)
+        driver_for_springer = make_chrome_headless()
         print("Driver for Springer is ready.")
-        driver_for_ieee = make_chrome_headless(True)
+        driver_for_ieee = make_chrome_headless()
         print("Driver for IEEE Xplore is ready.\n")
         driver_for_ieee.implicitly_wait(10)
         driver_for_springer.implicitly_wait(10)
@@ -232,6 +232,7 @@ def get_all_results() -> bool:
         if checkSpringer.lower() == "y":
             i_springer = 0  # set increment representing how many pages the user wants to traverse
             print("Checking results in Springer:")
+            print('max pages springer:', max_pages_springer)
             with open(str(file_path), "a+", encoding="UTF8", newline="") as f:
                 # create the csv writer
                 writer = csv.writer(f)
@@ -244,24 +245,34 @@ def get_all_results() -> bool:
                     driver_for_springer.get(
                         f"https://link.springer.com/search/page/{str(t)}?date-facet-mode=between&facet-end-year=2021&query=%22{quote(query)}%22&facet-content-type=%22ConferencePaper%22&showAll=true&facet-start-year=2016"
                     )
-                    results_per_page = (
-                        driver_for_springer.find_elements_by_css_selector(
-                            "#results-list li"
-                        )
+                    # parse source code
+                    soup = BeautifulSoup(driver_for_springer.page_source, "html.parser")
+                    # get result containers
+                    result_containers = soup.findAll(
+                        "li", class_="no-access"
                     )
+                    # print(result_containers)
+                    # html_list = driver_for_springer.find_element_by_id("results-list")
+                    # print(html_list)
+                    # items = html_list.find_elements_by_tag_name("li")
+                    # print(items)
+                    # results_per_page = (
+                    #     driver_for_springer.find_elements_by_css_selector(
+                    #         "#no-access li"
+                    #     )
+                    # )
+                    # print(results_per_page)
                     j = 0  # set increment representing how many hits the user wants to traverse
                     # Loop through every container
-                    for result in results_per_page:
-                        # Final results list
-                        results = []
+                    for container in result_containers:
                         # Result journal title
-                        journal = result.find_element_by_class_name(
-                            "publication-title"
-                        ).get_attribute("title")
+                        journal = container.find("a", class_='publication-title')["title"]
+                        print('Journal TEST', journal)
                         for matched_with in list_of_selected_jc:
                             if ratio(journal, matched_with) >= similarity_percentage:
                                 # Result title
-                                title = result.find_element_by_tag_name("h2").text
+                                title = container.find("h2").text
+                                print("Title TEST", title)
                                 added_titles.append(title)
                                 if (
                                     added_titles.count(title) == 0
@@ -272,31 +283,19 @@ def get_all_results() -> bool:
                                         f"Placed {k} results from Springer and {result_count} in total so far! Still checking..."
                                     )
                                     # Result url
-                                    links = result.find_element_by_tag_name(
-                                        "h2"
-                                    ).find_elements_by_tag_name("a")
-                                    url = "None"
-                                    for link in links:
-                                        url = link.get_attribute("href")
+                                    temp_url = container.find("h2").a["href"]
+                                    lst = [
+                                        "https://link.springer.com",
+                                        temp_url
+                                    ]
+                                    url = "".join(lst)
+                                    print('URL TEST', url)
                                     # Result author(s)
-                                    t_author_list = []
-                                    a_list = result.find_element_by_class_name(
-                                        "authors"
-                                    ).text
-                                    b_list = ""
-                                    try:
-                                        b_list = (
-                                            result.find_element_by_class_name("authors")
-                                            .find_element_by_tag_name("span")
-                                            .get_attribute("title")
-                                        )
-                                    except:
-                                        pass
-                                    full = a_list + b_list
-                                    t_author_list.append(full)
-                                    t2_author_list = str(t_author_list).strip("[]")
-                                    t3author_list = t2_author_list.replace("'", "")
-                                    author_list = t3author_list.replace("…", ", ")
+                                    authors = container.findAll(
+                                        "span", class_="authors"
+                                    )
+                                    for author in authors:
+                                        print('Author TEST', author)
                                     # Result publish year
                                     p_year = result.find_element_by_class_name(
                                         "year"
