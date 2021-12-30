@@ -237,7 +237,7 @@ def get_all_results() -> bool:
         if checkSpringer.lower() == "y":
             i_springer = 0  # set increment representing how many pages the user wants to traverse
             print("Checking results in Springer:")
-            print('max pages springer:', max_pages_springer)
+            print("max pages springer:", max_pages_springer)
             with open(str(file_path), "a+", encoding="UTF8", newline="") as f:
                 # create the csv writer
                 writer = csv.writer(f)
@@ -253,9 +253,7 @@ def get_all_results() -> bool:
                     # parse source code
                     soup = BeautifulSoup(driver_for_springer.page_source, "html.parser")
                     # get result containers
-                    result_containers = soup.findAll(
-                        "li", class_="no-access"
-                    )
+                    result_containers = soup.findAll("li", class_="no-access")
                     # print(result_containers)
                     # html_list = driver_for_springer.find_element_by_id("results-list")
                     # print(html_list)
@@ -271,7 +269,9 @@ def get_all_results() -> bool:
                     # Loop through every container
                     for container in result_containers:
                         # Result journal title
-                        journal = container.find("a", class_='publication-title')["title"]
+                        journal = container.find("a", class_="publication-title")[
+                            "title"
+                        ]
                         # print('Journal TEST', journal)
                         for matched_with in list_of_selected_jc:
                             if ratio(journal, matched_with) >= similarity_percentage:
@@ -290,20 +290,25 @@ def get_all_results() -> bool:
                                     )
                                     # Result url
                                     temp_url = container.find("h2").a["href"]
-                                    lst = [
-                                        "https://link.springer.com",
-                                        temp_url
-                                    ]
+                                    lst = ["https://link.springer.com", temp_url]
                                     url = "".join(lst)
                                     # print('URL TEST', url)
                                     # Result author(s)
                                     author_list = container.find(
                                         "span", class_="authors"
                                     ).text.lstrip()
-                                    print(type(url), type(author_list), author_list, type(title), title)
+                                    print(
+                                        type(url),
+                                        type(author_list),
+                                        author_list,
+                                        type(title),
+                                        title,
+                                    )
                                     # print('Author TEST', author_list)
                                     # Result publish year
-                                    p_year = container.find("span", class_='year')["title"]
+                                    p_year = container.find("span", class_="year")[
+                                        "title"
+                                    ]
                                     # print('year TEST', p_year)
                                     # Result num
                                     j += 1
