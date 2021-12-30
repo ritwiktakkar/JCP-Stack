@@ -3,9 +3,8 @@
   <p align="center">
     An efficient way to collect results from the ACM, Springer, and IEEE Xplore digital libraries
     <br />
-    <a href="">View Demo **TO-DO**</a> <!-- TODO: add link to video demo on website (embedded youtube link) -->
+    <a href="">View Demo **TO-DO**</a> <!-- TODO: add link to video demo on website (embedded YouTube link) -->
   </p>
-</p>
 
 <!-- TABLE OF CONTENTS -->
 <details open="open">
@@ -117,12 +116,12 @@ To get this project running on your local machine, follow these simple steps:
 
 <!-- STATUS -->
 ## Status
-Given that the layouts of online research databases are updated occasionally, the scraper may also need to be updated acordingly to successfully retrieve the necessary information therein. The table below provides the current status of the scraper's ability to retrieve information from different online research databases.
+Given that the layouts of online research databases are updated occasionally, the scraper may also need to be updated accordingly to successfully retrieve the necessary information therein. The table below provides the current status of the scraper's ability to retrieve information from different online research databases.
 |   Database  | Scraper Status |
 |:-----------:|:--------------:|
 |     ACM     |        ✅       |
 |   Springer  |        ✅       |
-| IEEE Xplore |        ❌       |
+| IEEE Xplore |        ✅       |
 
 
 <!-- ISSUES -->
