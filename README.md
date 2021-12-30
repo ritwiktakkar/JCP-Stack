@@ -3,7 +3,7 @@
   <p align="center">
     An efficient way to collect results from the ACM, Springer, and IEEE Xplore digital libraries
     <br />
-    <a href="">View Demo **TO-DO**</a> <!-- TODO: add link to video demo on website (embedded YouTube link) -->
+    <a href="https://www.youtube.com/watch?v=m0GJaKpOwXk">View Demo</a> <!-- TODO: add link to video demo on website (embedded YouTube link) -->
   </p>
 
 <!-- TABLE OF CONTENTS -->
@@ -109,9 +109,7 @@ To get this project running on your local machine, follow these simple steps:
 <!-- USAGE EXAMPLES -->
 ## Usage
 <!-- Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources. -->
-
-**TO-DO**
-
+Click [here](https://ritwiktakkar.com/projects.html#jcp-stack) to view usage information.
 
 
 <!-- STATUS -->
