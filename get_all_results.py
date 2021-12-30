@@ -23,7 +23,8 @@ def is_valid_search() -> List:
             end=" ",
             flush=True,
         )
-        # 2 - driver visits links with user input term as search query and only check for results between years 2016 - 2021
+        # 2 - driver visits links with user input term as search query and only check for results between years 2016
+        # - 2021
         driver_for_acm.get(
             "https://dl.acm.org/action/doSearch?fillQuickSearch=false&expand=dl&field1=Keyword&text1=%s&AfterMonth=1&AfterYear=2016&BeforeMonth=12&BeforeYear=2021"
             % quote(query)
@@ -140,8 +141,6 @@ def get_all_results() -> bool:
             with open(str(file_path), "w", encoding="UTF8", newline="") as f:
                 # create the csv writer
                 writer = csv.writer(f)
-                # write the header
-                # writer.writerow(header)
                 k = 0  # counts how many results match selected journals/conferences
                 for i in range(int(max_pages_acm)):  # traverse each page
                     t = i + 1
@@ -206,7 +205,7 @@ def get_all_results() -> bool:
                                         .find("span")
                                         .text.rstrip(", ")
                                     )
-                                    numbers = compile(r"\d+(?:\.\d+)?")
+                                    numbers = re.compile(r"\d+(?:\.\d+)?")
                                     p_year = numbers.findall(date)[0]
                                     # Result num
                                     j += 1
@@ -281,13 +280,6 @@ def get_all_results() -> bool:
                                     author_list = container.find(
                                         "span", class_="authors"
                                     ).text.lstrip()
-                                    print(
-                                        type(url),
-                                        type(author_list),
-                                        author_list,
-                                        type(title),
-                                        title,
-                                    )
                                     # Result publish year
                                     p_year = container.find("span", class_="year")[
                                         "title"
