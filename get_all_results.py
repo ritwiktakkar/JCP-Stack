@@ -270,13 +270,14 @@ def get_all_results() -> bool:
                         print('Journal TEST', journal)
                         for matched_with in list_of_selected_jc:
                             if ratio(journal, matched_with) >= similarity_percentage:
+                                print('matched', journal, 'with', matched_with)
                                 # Result title
                                 title = container.find("h2").text
                                 print("Title TEST", title)
-                                added_titles.append(title)
                                 if (
                                     added_titles.count(title) == 0
                                 ):  # only add to result CSV if title hasn't been added already
+                                    added_titles.append(title)
                                     k += 1
                                     result_count += 1
                                     print(
@@ -291,11 +292,10 @@ def get_all_results() -> bool:
                                     url = "".join(lst)
                                     print('URL TEST', url)
                                     # Result author(s)
-                                    authors = container.findAll(
+                                    authors = container.find(
                                         "span", class_="authors"
-                                    )
-                                    for author in authors:
-                                        print('Author TEST', author)
+                                    ).text
+                                    print('Author TEST', authors)
                                     # Result publish year
                                     p_year = result.find_element_by_class_name(
                                         "year"
