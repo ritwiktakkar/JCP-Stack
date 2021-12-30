@@ -152,12 +152,12 @@ header = [
     "URL",
     "Title",
     "Author(s)",
-    "Publish Year",
+    "Year",
     "Journal",
     "Matched with Selected Journal/Conference",
     "Similarity %",
     "Database",
-    "Query/Keyword",
+    "Query",
 ]
 
 # create list of selected journals and conferences using below function

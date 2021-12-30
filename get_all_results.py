@@ -121,6 +121,11 @@ def get_all_results() -> bool:
         # 2 - do IO to: (1) get similarity_percentage user wants, (2) create file for results, and (3) let user know that drivers are starting to find & place results now
         similarity_percentage, sp = itemgetter(0, 1)(sp_io())
         file_path = create_file(config.path_to_search_results)
+        with open(str(file_path), "w", encoding="UTF8", newline="") as f:
+            # create the csv writer
+            writer = csv.writer(f)
+            # write the header
+            writer.writerow(header)
         print_checking_all_results(sp)
         # 3 - create a list of titles to append to in order to prevent duplicate additions
         added_titles = []
@@ -136,7 +141,7 @@ def get_all_results() -> bool:
                 # create the csv writer
                 writer = csv.writer(f)
                 # write the header
-                writer.writerow(header)
+                # writer.writerow(header)
                 k = 0  # counts how many results match selected journals/conferences
                 for i in range(int(max_pages_acm)):  # traverse each page
                     t = i + 1
@@ -267,13 +272,13 @@ def get_all_results() -> bool:
                     for container in result_containers:
                         # Result journal title
                         journal = container.find("a", class_='publication-title')["title"]
-                        print('Journal TEST', journal)
+                        # print('Journal TEST', journal)
                         for matched_with in list_of_selected_jc:
                             if ratio(journal, matched_with) >= similarity_percentage:
-                                print('matched', journal, 'with', matched_with)
+                                # print('matched', journal, 'with', matched_with)
                                 # Result title
-                                title = container.find("h2").text
-                                print("Title TEST", title)
+                                title = container.find("h2").text.lstrip()
+                                # print("Title TEST", title)
                                 if (
                                     added_titles.count(title) == 0
                                 ):  # only add to result CSV if title hasn't been added already
@@ -290,16 +295,16 @@ def get_all_results() -> bool:
                                         temp_url
                                     ]
                                     url = "".join(lst)
-                                    print('URL TEST', url)
+                                    # print('URL TEST', url)
                                     # Result author(s)
-                                    authors = container.find(
+                                    author_list = container.find(
                                         "span", class_="authors"
-                                    ).text
-                                    print('Author TEST', authors)
+                                    ).text.lstrip()
+                                    print(type(url), type(author_list), author_list, type(title), title)
+                                    # print('Author TEST', author_list)
                                     # Result publish year
-                                    p_year = result.find_element_by_class_name(
-                                        "year"
-                                    ).get_attribute("title")
+                                    p_year = container.find("span", class_='year')["title"]
+                                    # print('year TEST', p_year)
                                     # Result num
                                     j += 1
                                     # Similarity %
