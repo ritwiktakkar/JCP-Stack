@@ -354,30 +354,18 @@ def get_all_results() -> bool:
                                         f"Placed {k} results from IEEE and {result_count} in total so far! Still checking..."
                                     )
                                     # Result url
-                                    links = result.find_element_by_tag_name(
-                                        "h2"
-                                    ).find_elements_by_tag_name("a")
-                                    url = "None"
-                                    for link in links:
-                                        url = link.get_attribute("href")
+                                    tmp_url = container.find("h2").a["href"]
+                                    lst = ["https://ieeexplore.ieee.org", tmp_url]
+                                    url = "".join(lst)
                                     # Result author_list
-                                    t1author_list = []
-                                    t1author_list.append(
-                                        result.find_element_by_class_name(
-                                            "author"
-                                        ).text.replace(";", ", ")
-                                    )
-                                    t_author_list = str(t1author_list).strip("[]")
-                                    author_list = t_author_list.replace("'", "")
+                                    author_list = container.find(
+                                        "p", class_="author"
+                                    ).text
                                     # Result publish year
-                                    p_year_t1 = (
-                                        result.find_element_by_class_name(
-                                            "publisher-info-container"
-                                        )
-                                        .find_element_by_tag_name("span")
-                                        .text.lstrip(ascii_letters)
-                                    )
-                                    p_year = p_year_t1.lstrip(": ")
+                                    p_year_tmp = container.find(
+                                        "div", class_="publisher-info-container"
+                                    ).text
+                                    p_year = re.sub(r"\D", "", p_year_tmp)
                                     # Similarity %
                                     t_sim_per = ratio(journal, matched_with) * 100
                                     sim_per = format(t_sim_per, ".2f")

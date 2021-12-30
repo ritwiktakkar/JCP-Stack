@@ -10,7 +10,7 @@ from math import ceil
 from operator import itemgetter
 from string import ascii_letters
 from sys import platform
-from re import compile
+import re
 import subprocess
 import csv
 import config
