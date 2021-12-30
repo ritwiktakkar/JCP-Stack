@@ -122,7 +122,7 @@ Given that the layouts of online research databases are updated occasionally, th
 |:-----------:|:--------------:|
 |     ACM     |        ✅       |
 |   Springer  |        ✅       |
-| IEEE Xplore |        ❌       |
+| IEEE Xplore |        ✅       |
 
 
 <!-- ISSUES -->
