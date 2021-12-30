@@ -9,11 +9,11 @@ def is_valid_search() -> List:
     """
     try:
         # 1 - create drivers for each database
-        driver_for_acm = make_chrome_headless(True)  # True hides automated browser
+        driver_for_acm = make_chrome_headless()  # True hides automated browser
         print("Driver for ACM is ready.")
-        driver_for_springer = make_chrome_headless(True)
+        driver_for_springer = make_chrome_headless()
         print("Driver for Springer is ready.")
-        driver_for_ieee = make_chrome_headless(True)
+        driver_for_ieee = make_chrome_headless()
         print("Driver for IEEE Xplore is ready.\n")
         driver_for_ieee.implicitly_wait(10)
         driver_for_springer.implicitly_wait(10)
@@ -121,6 +121,11 @@ def get_all_results() -> bool:
         # 2 - do IO to: (1) get similarity_percentage user wants, (2) create file for results, and (3) let user know that drivers are starting to find & place results now
         similarity_percentage, sp = itemgetter(0, 1)(sp_io())
         file_path = create_file(config.path_to_search_results)
+        with open(str(file_path), "w", encoding="UTF8", newline="") as f:
+            # create the csv writer
+            writer = csv.writer(f)
+            # write the header
+            writer.writerow(header)
         print_checking_all_results(sp)
         # 3 - create a list of titles to append to in order to prevent duplicate additions
         added_titles = []
@@ -136,7 +141,7 @@ def get_all_results() -> bool:
                 # create the csv writer
                 writer = csv.writer(f)
                 # write the header
-                writer.writerow(header)
+                # writer.writerow(header)
                 k = 0  # counts how many results match selected journals/conferences
                 for i in range(int(max_pages_acm)):  # traverse each page
                     t = i + 1
@@ -232,75 +237,61 @@ def get_all_results() -> bool:
         if checkSpringer.lower() == "y":
             i_springer = 0  # set increment representing how many pages the user wants to traverse
             print("Checking results in Springer:")
+            print("max pages springer:", max_pages_springer)
             with open(str(file_path), "a+", encoding="UTF8", newline="") as f:
                 # create the csv writer
                 writer = csv.writer(f)
-                # list of journal names to append to to prevent duplicate additions
+                # list of journal names to append to prevent duplicate additions
                 added_titles = []
                 k = 0  # counts how many results match selected journals/conferences
                 for i in range(int(max_pages_springer)):  # traverse each page
                     t = i + 1
-                    # print(f"Checking results on page {t}...")
                     driver_for_springer.get(
                         f"https://link.springer.com/search/page/{str(t)}?date-facet-mode=between&facet-end-year=2021&query=%22{quote(query)}%22&facet-content-type=%22ConferencePaper%22&showAll=true&facet-start-year=2016"
                     )
-                    results_per_page = (
-                        driver_for_springer.find_elements_by_css_selector(
-                            "#results-list li"
-                        )
-                    )
+                    # parse source code
+                    soup = BeautifulSoup(driver_for_springer.page_source, "html.parser")
+                    # get result containers
+                    result_containers = soup.findAll("li", class_="no-access")
                     j = 0  # set increment representing how many hits the user wants to traverse
                     # Loop through every container
-                    for result in results_per_page:
-                        # Final results list
-                        results = []
+                    for container in result_containers:
                         # Result journal title
-                        journal = result.find_element_by_class_name(
-                            "publication-title"
-                        ).get_attribute("title")
+                        journal = container.find("a", class_="publication-title")[
+                            "title"
+                        ]
                         for matched_with in list_of_selected_jc:
                             if ratio(journal, matched_with) >= similarity_percentage:
                                 # Result title
-                                title = result.find_element_by_tag_name("h2").text
-                                added_titles.append(title)
+                                title = container.find("h2").text.lstrip()
                                 if (
                                     added_titles.count(title) == 0
                                 ):  # only add to result CSV if title hasn't been added already
+                                    added_titles.append(title)
                                     k += 1
                                     result_count += 1
                                     print(
                                         f"Placed {k} results from Springer and {result_count} in total so far! Still checking..."
                                     )
                                     # Result url
-                                    links = result.find_element_by_tag_name(
-                                        "h2"
-                                    ).find_elements_by_tag_name("a")
-                                    url = "None"
-                                    for link in links:
-                                        url = link.get_attribute("href")
+                                    temp_url = container.find("h2").a["href"]
+                                    lst = ["https://link.springer.com", temp_url]
+                                    url = "".join(lst)
                                     # Result author(s)
-                                    t_author_list = []
-                                    a_list = result.find_element_by_class_name(
-                                        "authors"
-                                    ).text
-                                    b_list = ""
-                                    try:
-                                        b_list = (
-                                            result.find_element_by_class_name("authors")
-                                            .find_element_by_tag_name("span")
-                                            .get_attribute("title")
-                                        )
-                                    except:
-                                        pass
-                                    full = a_list + b_list
-                                    t_author_list.append(full)
-                                    t2_author_list = str(t_author_list).strip("[]")
-                                    t3author_list = t2_author_list.replace("'", "")
-                                    author_list = t3author_list.replace("…", ", ")
+                                    author_list = container.find(
+                                        "span", class_="authors"
+                                    ).text.lstrip()
+                                    print(
+                                        type(url),
+                                        type(author_list),
+                                        author_list,
+                                        type(title),
+                                        title,
+                                    )
                                     # Result publish year
-                                    p_year = result.find_element_by_class_name(
-                                        "year"
-                                    ).get_attribute("title")
+                                    p_year = container.find("span", class_="year")[
+                                        "title"
+                                    ]
                                     # Result num
                                     j += 1
                                     # Similarity %
@@ -334,64 +325,47 @@ def get_all_results() -> bool:
                 writer = csv.writer(f)
                 k = 0  # counts how many results match selected journals/conferences
                 for i in range(1, int(max_pages_ieee) + 1):
-                    # print(f"Checking results on page {i}...")
                     driver_for_ieee.get(
                         f"https://ieeexplore.ieee.org/search/searchresult.jsp?action=search&newsearch=true&matchBoolean=true&queryText=(%22Author%20Keywords%22:{quote(query)})&highlight=true&returnType=SEARCH&matchPubs=true&pageNumber={str(i)}&ranges=2016_2022_Year&returnFacets=ALL&rowsPerPage=25"
                     )
                     results_per_page = driver_for_ieee.find_elements_by_class_name(
                         "List-results-items"
                     )
-                    for result in results_per_page:
-                        # Final results list
-                        results = []
-                        # Result title
-                        # check if result journal is in list of selected journals
+                    soup = BeautifulSoup(driver_for_ieee.page_source, "html.parser")
+                    # get result containers
+                    result_containers = soup.findAll("div", class_="List-results-items")
+                    for container in result_containers:
+                        # journal title
                         try:
-                            journal = (
-                                result.find_element_by_class_name("description")
-                                .find_element_by_tag_name("a")
-                                .text
-                            )
+                            journal = container.find("div", class_="description").a.text
                         except:
-                            journal = "No journal name found"
+                            journal = "Not found"
                         for matched_with in list_of_selected_jc:
                             if ratio(journal, matched_with) >= similarity_percentage:
                                 # Result title
-                                title = result.find_element_by_tag_name("h2").text
-                                added_titles.append(title)
+                                title = container.find("h2").text.lstrip()
                                 if (
                                     added_titles.count(title) == 0
                                 ):  # only add to result CSV if title hasn't been added already
+                                    added_titles.append(title)
                                     k += 1
                                     result_count += 1
                                     print(
                                         f"Placed {k} results from IEEE and {result_count} in total so far! Still checking..."
                                     )
                                     # Result url
-                                    links = result.find_element_by_tag_name(
-                                        "h2"
-                                    ).find_elements_by_tag_name("a")
-                                    url = "None"
-                                    for link in links:
-                                        url = link.get_attribute("href")
+                                    tmp_url = container.find("h2").a["href"]
+                                    lst = ["https://ieeexplore.ieee.org", tmp_url]
+                                    url = "".join(lst)
                                     # Result author_list
-                                    t1author_list = []
-                                    t1author_list.append(
-                                        result.find_element_by_class_name(
-                                            "author"
-                                        ).text.replace(";", ", ")
-                                    )
-                                    t_author_list = str(t1author_list).strip("[]")
-                                    author_list = t_author_list.replace("'", "")
+                                    author_list = container.find(
+                                        "p", class_="author"
+                                    ).text
                                     # Result publish year
-                                    p_year_t1 = (
-                                        result.find_element_by_class_name(
-                                            "publisher-info-container"
-                                        )
-                                        .find_element_by_tag_name("span")
-                                        .text.lstrip(ascii_letters)
-                                    )
-                                    p_year = p_year_t1.lstrip(": ")
+                                    p_year_tmp = container.find(
+                                        "div", class_="publisher-info-container"
+                                    ).text
+                                    p_year = re.sub(r"\D", "", p_year_tmp)
                                     # Similarity %
                                     t_sim_per = ratio(journal, matched_with) * 100
                                     sim_per = format(t_sim_per, ".2f")

@@ -121,7 +121,7 @@ Given that the layouts of online research databases are updated occasionally, th
 |   Database  | Scraper Status |
 |:-----------:|:--------------:|
 |     ACM     |        ✅       |
-|   Springer  |        ❌       |
+|   Springer  |        ✅       |
 | IEEE Xplore |        ❌       |
 
 

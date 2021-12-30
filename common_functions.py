@@ -10,7 +10,7 @@ from math import ceil
 from operator import itemgetter
 from string import ascii_letters
 from sys import platform
-from re import compile
+import re
 import subprocess
 import csv
 import config
@@ -21,7 +21,7 @@ def make_chrome_headless(o=True):
     Return a headless driver of Chrome
     """
     options = Options()
-    if o == True:
+    if o:
         options.add_argument("--headless")
     options.add_argument("--disable-extensions")
     options.add_argument("--log-level=3")
@@ -152,12 +152,12 @@ header = [
     "URL",
     "Title",
     "Author(s)",
-    "Publish Year",
+    "Year",
     "Journal",
     "Matched with Selected Journal/Conference",
     "Similarity %",
     "Database",
-    "Query/Keyword",
+    "Query",
 ]
 
 # create list of selected journals and conferences using below function
