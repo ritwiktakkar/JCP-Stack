@@ -109,8 +109,7 @@ To get this project running on your local machine, follow these simple steps:
 <!-- USAGE EXAMPLES -->
 ## Usage
 <!-- Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources. -->
-Click [here](https://ritwiktakkar.com/projects.html#jcp-stack) to view usage information.
-
+[Here](https://youtu.be/m0GJaKpOwXk) is a video demo.
 
 <!-- STATUS -->
 ## Status
