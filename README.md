@@ -114,6 +114,7 @@ To get this project running on your local machine, follow these simple steps:
 <!-- STATUS -->
 ## Status
 Given that the layouts of online research databases are updated occasionally, the scraper may also need to be updated accordingly to successfully retrieve the necessary information therein. The table below provides the current status of the scraper's ability to retrieve information from different online research databases.
+<i>As of 12/30/21...</i>
 |   Database  | Scraper Status |
 |:-----------:|:--------------:|
 |     ACM     |        ✅       |
